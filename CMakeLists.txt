@@ -52,6 +52,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(rosbag2_cpp REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -123,6 +124,21 @@ install(TARGETS fastlio_mapping
 install(
   DIRECTORY config launch rviz
   DESTINATION share/${PROJECT_NAME}
+)
+
+
+add_executable(bagprocessing src/bagprocessing.cpp)
+
+ament_target_dependencies(bagprocessing
+  rclcpp
+  rosbag2_cpp
+  sensor_msgs
+)
+
+
+install(
+  TARGETS bagprocessing
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 ament_package()

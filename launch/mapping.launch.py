@@ -9,6 +9,12 @@ from launch.conditions import IfCondition
 
 from launch_ros.actions import Node
 
+from launch.actions import (
+    IncludeLaunchDescription,
+    RegisterEventHandler,
+    Shutdown,
+    DeclareLaunchArgument,
+)
 
 def generate_launch_description():
     package_path = get_package_share_directory('fast_lio')
@@ -50,6 +56,13 @@ def generate_launch_description():
                     {'use_sim_time': use_sim_time}],
         output='screen'
     )
+    bag_node = Node(
+        package='fast_lio',
+        executable='bagprocessing',
+        name='bag_processing',
+        output='log',
+        on_exit=Shutdown(),
+    )
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
@@ -66,5 +79,6 @@ def generate_launch_description():
 
     ld.add_action(fast_lio_node)
     ld.add_action(rviz_node)
+    ld.add_action(bag_node)
 
     return ld

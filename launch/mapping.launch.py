@@ -89,7 +89,7 @@ def generate_launch_description():
         # -- Override arguments (empty = use YAML defaults) -----------------
         DeclareLaunchArgument(
             'lid_topic', default_value='',
-            description='Override lidar topic (e.g. /livox/lidar_box_cropped)'
+            description='Override lidar topic (e.g. /livox/lidar_cropped)'
         ),
         DeclareLaunchArgument(
             'dense_publish_en', default_value='',
